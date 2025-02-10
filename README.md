@@ -1,4 +1,4 @@
-# 🚀 Data Structures and Algorithms in C
+# 🚀 Data Structures and Algorithms in C++
 
 <div align="center">
   <img src="https://img.shields.io/github/stars/yourusername/DSA-in-C-?style=social" alt="Stars"/>
@@ -7,7 +7,7 @@
   <img src="https://img.shields.io/github/license/yourusername/DSA-in-C-" alt="License"/>
 </div>
 
-<p align="center">A comprehensive collection of Data Structures and Algorithms implemented in C programming language.</p>
+<p align="center">A comprehensive collection of Data Structures and Algorithms implemented in C++ programming language.</p>
 
 ## 📚 Table of Contents
 - [Algorithms Overview](#algorithms-overview)
@@ -148,7 +148,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👏 Acknowledgments
 - Thanks to all contributors who help in improving this repository
-- Special thanks to the C programming community
+- Special thanks to the C++ programming community
 
 ## 📫 Contact
 If you have any questions or suggestions, feel free to [open an issue](https://github.com/yourusername/DSA-in-C-/issues).
