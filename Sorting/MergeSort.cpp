@@ -1,117 +1,88 @@
 /*
-Merge Sort Explanation:
-----------------------
-Time Complexity: O(n log n)
-- Worst Case: O(n log n)
-- Average Case: O(n log n)
-- Best Case: O(n log n)
-Why? Because:
-- Dividing array takes log n steps
-- Merging at each step takes n operations
-- So, n × log n = n log n operations
-- Always same complexity as it always divides in half!
-
+Merge Sort (Striver's Implementation):
+------------------------------------
+Time Complexity: O(n log n) for all cases
 Space Complexity: O(n)
-- Needs extra array of size n for merging
-- Not an in-place sorting algorithm
-- Uses recursive stack space O(log n)
-- Total space = O(n) + O(log n) = O(n)
 
-How it works:
-- Like shuffling two sorted decks of cards
-- Divide deck into two halves
-- Sort each half separately (recursively)
-- Merge sorted halves back together
-- Like tournament brackets in reverse!
-
-Divide & Conquer Strategy:
-1. Divide: Split array into two halves
-2. Conquer: Recursively sort the two halves
-3. Combine: Merge the sorted halves
+Key Concept:
+- Divide array into two halves
+- Sort them recursively
+- Merge sorted halves
+- Stable sorting algorithm
 */
 
 #include <iostream>
 #include <vector>
-#include <iomanip>
 using namespace std;
 
-void merge(vector<int>& arr, int l, int mid, int r) {
-    int n1 = mid - l + 1;
-    int n2 = r - mid;
+void merge(vector<int> &arr, int low, int mid, int high) {
+    vector<int> temp;
+    int left = low;
+    int right = mid + 1;
 
-    vector<int> left(n1), right(n2);
-
-    for (int i = 0; i < n1; i++) {
-        left[i] = arr[l + i];
-    }
-    for (int j = 0; j < n2; j++) {
-        right[j] = arr[mid + 1 + j];
-    }
-
-    int i = 0, j = 0, k = l;
-
-    while (i < n1 && j < n2) {
-        if (left[i] <= right[j]) {
-            arr[k] = left[i];
-            i++;
-        } else {
-            arr[k] = right[j];
-            j++;
+    // Store elements in sorted order in temp array
+    while (left <= mid && right <= high) {
+        if (arr[left] <= arr[right]) {
+            temp.push_back(arr[left]);
+            left++;
         }
-        k++;
+        else {
+            temp.push_back(arr[right]);
+            right++;
+        }
     }
 
-    while (i < n1) {
-        arr[k] = left[i];
-        i++;
-        k++;
+    // Copy remaining elements from left side
+    while (left <= mid) {
+        temp.push_back(arr[left]);
+        left++;
     }
 
-    while (j < n2) {
-        arr[k] = right[j];
-        j++;
-        k++;
+    // Copy remaining elements from right side
+    while (right <= high) {
+        temp.push_back(arr[right]);
+        right++;
+    }
+
+    // Copy back from temp to original array
+    for (int i = low; i <= high; i++) {
+        arr[i] = temp[i - low];
     }
 }
 
-void mergeSort(vector<int>& arr, int l, int r) {
-    if (l < r) {
-        int mid = l + (r - l) / 2;
-        mergeSort(arr, l, mid);
-        mergeSort(arr, mid + 1, r);
-        merge(arr, l, mid, r);
-    }
-}
-
-void printArray(const vector<int>& arr, const string& message) {
-    cout << message;
-    for (int num : arr) {
-        cout << setw(4) << num;
-    }
-    cout << endl;
+void mergeSort(vector<int> &arr, int low, int high) {
+    if (low >= high) return;
+    
+    int mid = (low + high) / 2;
+    mergeSort(arr, low, mid);
+    mergeSort(arr, mid + 1, high);
+    merge(arr, low, mid, high);
 }
 
 int main() {
-    int n;  
-    cout << "\n=== Merge Sort Implementation ===\n";
-    cout << "Enter the number of elements: ";
+    int n;
+    cout << "Enter size of array: ";
     cin >> n;
     
     vector<int> arr(n);
- 
-    cout << "\nEnter " << n << " elements:\n";
-    for (int i = 0; i < n; i++) {
-        cout << "Element " << i + 1 << ": ";
+    cout << "Enter " << n << " elements: ";
+    for(int i = 0; i < n; i++) {
         cin >> arr[i];
     }
     
-    cout << "\n";
-    printArray(arr, "\nOriginal Array:  ");
+    cout << "\nOriginal array: ";
+    for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
     
     mergeSort(arr, 0, n - 1);
     
-    printArray(arr, "Sorted Array:   ");
-    cout << "\n";
+    cout << "Sorted array: ";
+    for(int i = 0; i < n; i++) {
+        cout << arr[i] << " ";
+    }
+    cout << endl;
     
     return 0;
 }
